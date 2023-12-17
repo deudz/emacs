@@ -4,6 +4,9 @@
 
 ;;; Code:
 
+;; Carregando o diretório com os arquivos necessários
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
+
 ;; Precisamos disso porque estamos usando o straight.el
 (setq package-enable-at-startup nil)
 
@@ -11,8 +14,9 @@
 (setq warning-minimum-level :error)
  
 ;; Deixando o Emacs mais polido
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
+(tool-bar-mode 0)   ; Desabilitar a barra de ferramentas
+(menu-bar-mode 0)   ; Desabilitar a barra de menu
+(scroll-bar-mode 0) ; Desabilitar a barra de rolagem
+(tooltip-mode 0)    ; Desabilitar os pop-ups do mouse
 
 ;;; early-init.el ends here

@@ -4,8 +4,6 @@
 
 ;;; Code:
 
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
-
 (require 'bootstrap)
 (require 'evil)
 (require 'vertico)

@@ -8,9 +8,9 @@
 ;; Não crie arquivos de backup
 (setq make-backup-file nil)
 
-;; Numerar as linhas
+;; Numerar as linhas somente no modo de programação
 (setq display-line-numbers t)
-(global-display-line-numbers-mode 1)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Destacar a linha onde o cursor está
 (global-hl-line-mode 1)
