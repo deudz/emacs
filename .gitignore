@@ -1,9 +1,11 @@
 *~
 
 /auto-save-list/
-/tramp/
+/tramp
 /eln-cache/
 /recentf
 /straight/
 /eshell/
 /transient/
+/.cache/
+/.lsp-session-v1
