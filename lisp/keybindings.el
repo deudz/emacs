@@ -8,7 +8,8 @@
 (general-create-definer nmap/leader-key
   :states '(normal motion)
   :keymaps 'override
-  :prefix "SPC")
+  :prefix "SPC"
+  :global-prefix "M-m")
 
 ;; Arquivos
 (nmap/leader-key
