@@ -54,8 +54,10 @@
   "h"  '(:ignore t :wk "ajuda")
   "hf" '(describe-function :wk "Descreva uma função")
   "hv" '(describe-variable :wk "Descreva uma variavel")
-  "hk" '(describe-key :wk "Descreva um atalho")
-  "hx" '(describe-command :wk "Descreva um comando"))
+  "hk" '(describe-key :wk "Descreva o que tal atalho faz")
+  "hx" '(describe-command :wk "Descreva um comando")
+  "ha" '(apropos-command :wk "Achar um comando")
+  "hc" '(describe-key-briefly :wk "Descreva brevemente o que tal atalho faz"))
 
 ;; Outros
 (nmap/leader-key
