@@ -9,14 +9,6 @@
   :init (vertico-mode 1))
 (use-package consult)
 
-(use-package vertico-directory
-  :after vertico
-  :straight nil
-  :bind (:map vertico-map
-              ("DEL" . vertico-directory-delete-word))
-  :hook ((rfn-eshadow-update-overlay . vertico-directory-tidy)
-	 (minibuffer-setup . vertico-repeat-save)))
-
 ;; Ignorar a captaliação da palavra
 (setq completion-ignore-case t)
 
