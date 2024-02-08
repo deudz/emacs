@@ -59,7 +59,7 @@
 ;; Outros
 (nmap/leader-key
   "SPC" '(execute-extended-command :wk "Executar um comando"))
-(general-def minibuffer-local-map "<escape>" 'keyboard-escape-quit)
+(general-def minibuffer-local-map "<escape>" 'abort-recursive-edit)
 
 ;; Sair
 (nmap/leader-key
