@@ -34,6 +34,7 @@
 ;; Janelas
 (nmap/leader-key
   "w"  '(:ignore t :wk "janela")
+  "ww" '(other-window :wk "Alternar para outra janela")
   "wq" '(delete-window :wk "Fechar janela em foco")
   "wo" '(delete-other-windows :wk "Fechar todas as outras janelas")
   "wS" '(split-window-below :wk "Dividir janela verticalmente")
