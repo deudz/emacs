@@ -15,6 +15,7 @@
 (require 'dashboard)
 (require 'beacon)
 (require 'magit)
+(require 'terminal)
 
 (require 'misc)
 
