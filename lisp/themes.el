@@ -5,7 +5,7 @@
 ;;; Code:
 
 (use-package doom-themes)
-(load-theme 'doom-gruvbox t)
+(load-theme 'doom-tomorrow-night t)
 
 (provide 'themes)
 ;;; themes.el ends here
