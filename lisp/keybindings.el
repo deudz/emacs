@@ -14,7 +14,7 @@
 ;; Arquivos
 (nmap/leader-key
   "f"  '(:ignore t :wk "arquivos")
-  "ff" '(find-file :wk "Abrir/Criar arquivo")
+  "ff" '(helm-find-files :wk "Abrir/Criar arquivo")
   "fs" '(save-buffer :wk "Salvar arquivo")
   "fS" '(save-some-buffers :wk "Salvar alguns arquivos")
   "fd" '(delete-file :wk "Deletar arquivo")
@@ -23,7 +23,7 @@
 ;; Buffers
 (nmap/leader-key
   "b"  '(:ignore t :wk "buffer")
-  "bb" '(consult-buffer :wk "Mudar o buffer")
+  "bb" '(switch-to-buffer :wk "Mudar o buffer")
   "bl" '(ibuffer :wk "Listar os buffers")
   "bn" '(next-buffer :wk "Proximo buffer")
   "bp" '(previous-buffer :wk "Buffer anterior")
@@ -58,7 +58,8 @@
 
 ;; Outros
 (nmap/leader-key
-  "SPC" '(execute-extended-command :wk "Executar um comando"))
+  "SPC" '(helm-M-x :wk "Executar um comando"))
+(general-def "M-x" 'helm-M-x)
 (general-def minibuffer-local-map "<escape>" 'abort-recursive-edit)
 
 ;; Sair

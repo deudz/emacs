@@ -6,7 +6,7 @@
 
 (require 'bootstrap)
 (require 'evil)
-(require 'vertico)
+(require 'completion)
 (require 'general)
 (require 'keybindings)
 (require 'which-key)
