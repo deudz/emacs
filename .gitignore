@@ -1,4 +1,5 @@
 *~
+\#*#
 
 /auto-save-list/
 /tramp
@@ -9,3 +10,6 @@
 /transient/
 /.cache/
 /.lsp-session-v1
+/projects
+/.local/
+/elpa/

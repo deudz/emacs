@@ -5,19 +5,18 @@
 ;; só que no Emacs, Vim e outros editores de texto.
 
 ;;; Code:
-(use-package lsp-mode
-  :init (setq lsp-keymap-prefix "C-c l")
-  :hook ((prog-mode . lsp-mode)
-	 (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-;;;(use-package lsp-ui)
+(use-package eglot
+  :hook (prog-mode . eglot-ensure)
+  :commands eglot)
 (use-package company
-  :hook (after-init . global-company-mode))
+  :hook (eglot-mode . company-mode)
+  :bind (:map evil-insert-state-map
+         ("C-SPC" . company-complete)))
 (use-package flycheck
-  :hook (after-init . global-flycheck-mode))
-
-;; Não mostre um aviso quando não tiver um servidor para a linguagem
-(setq lsp-warn-no-matched-clients nil)
+  :hook (eglot-mode . flycheck-mode))
+(use-package flycheck-inline
+  :after flycheck
+  :hook (flycheck-mode . flycheck-inline-mode))
 
 (provide 'lsp)
 ;;; lsp.el ends here

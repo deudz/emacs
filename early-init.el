@@ -14,9 +14,13 @@
 (setq warning-minimum-level :error)
  
 ;; Deixando o Emacs mais polido
-(tool-bar-mode 0)   ; Desabilitar a barra de ferramentas
-(menu-bar-mode 0)   ; Desabilitar a barra de menu
-(scroll-bar-mode 0) ; Desabilitar a barra de rolagem
-(tooltip-mode 0)    ; Desabilitar os pop-ups do mouse
+(push '(menu-bar-lines . 0)   default-frame-alist) ; Desabilita a barra de ferrametas
+(push '(tool-bar-lines . 0)   default-frame-alist) ; Desabilita a barra de menu
+(push '(vertical-scroll-bars) default-frame-alist) ; Desabilita a barra de rolagem
+(tooltip-mode 0)    ; Desabilita os pop-ups do mouse
+
+(setq menu-bar-mode nil
+      tool-bar-mode nil
+      scroll-bar-mode nil)
 
 ;;; early-init.el ends here

@@ -14,7 +14,7 @@
 ;; Arquivos
 (nmap/leader-key
   "f"  '(:ignore t :wk "arquivos")
-  "ff" '(helm-find-files :wk "Abrir/Criar arquivo")
+  "ff" '(find-file :wk "Abrir/Criar arquivo")
   "fs" '(save-buffer :wk "Salvar arquivo")
   "fS" '(save-some-buffers :wk "Salvar alguns arquivos")
   "fd" '(delete-file :wk "Deletar arquivo")
@@ -36,7 +36,9 @@
   "w"  '(:ignore t :wk "janela")
   "ww" '(other-window :wk "Alternar para outra janela")
   "wq" '(delete-window :wk "Fechar janela em foco")
+  "w0" '(delete-window :wk "Fechar janela em foco")
   "wo" '(delete-other-windows :wk "Fechar todas as outras janelas")
+  "w1" '(delete-other-windows :wk "Fechar janela em foco")
   "wS" '(split-window-below :wk "Dividir janela verticalmente")
   "ws" '(split-window-right :wk "Dividir janela horizontalmente")
   "wh" '(evil-window-left :wk "Ir para janela à esquerda")
@@ -61,9 +63,9 @@
 
 ;; Outros
 (nmap/leader-key
-  "SPC" '(helm-M-x :wk "Executar um comando"))
-(general-def "M-x" 'helm-M-x)
+  "SPC" '(execute-extended-command :wk "Executar um comando"))
 (general-def minibuffer-local-map "<escape>" 'abort-recursive-edit)
+(general-def ivy-minibuffer-map "<escape>" 'abort-recursive-edit)
 
 ;; Sair
 (nmap/leader-key

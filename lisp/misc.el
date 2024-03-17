@@ -6,18 +6,21 @@
 ;;; Code:
 
 ;; Não crie arquivos de backup
-(setq make-backup-file nil)
+(setq make-backup-files nil)
 
-;; Numerar as linhas somente no modo de programação
-(setq display-line-numbers t)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-
-;; Destacar a linha onde o cursor está
-(global-hl-line-mode 1)
+;; Usar espaços em vez de tabs
+(setq-default indent-tabs-mode nil)
 
 ;; Quando digitar ( ou " ou { ou [ o Emacs automaticamente colocará ]
 ;; ou } ou " ou )
 (electric-pair-mode 1)
+
+;; Usar `y' e `n' invêz de `yes' e `no'
+(defalias 'yes-or-no-p #'y-or-n-p)
+
+;; Tamanho inicial da janela
+(push '(width . 80)  default-frame-alist)
+(push '(height . 40) default-frame-alist)
 
 (provide 'misc)
 ;;; misc.el ends here
