@@ -4,75 +4,74 @@
 
 ;;; Code:
 
-;; Criar um definidor
-(general-create-definer nmap/leader-key
-  :states '(normal motion)
-  :keymaps 'override
-  :prefix "SPC"
-  :global-prefix "M-m")
+;; Definir a tecla líder
+(evil-set-leader 'normal (kbd "SPC"))
 
 ;; Arquivos
-(nmap/leader-key
-  "f"  '(:ignore t :wk "arquivos")
-  "ff" '(find-file :wk "Abrir/Criar arquivo")
-  "fs" '(save-buffer :wk "Salvar arquivo")
-  "fS" '(save-some-buffers :wk "Salvar alguns arquivos")
-  "fd" '(delete-file :wk "Deletar arquivo")
-  "fr" '(rename-file :wk "Renomear arquivo"))
+(evil-define-key 'normal 'global
+  (kbd "<leader>ff") #'find-file
+  (kbd "<leader>fe") #'consult-recent-file
+  (kbd "<leader>fs") #'save-buffer
+  (kbd "<leader>fS") #'save-some-buffers
+  (kbd "<leader>fd") #'delete-file
+  (kbd "<leader>fr") #'rename-file)
 
 ;; Buffers
-(nmap/leader-key
-  "b"  '(:ignore t :wk "buffer")
-  "bb" '(switch-to-buffer :wk "Mudar o buffer")
-  "bl" '(ibuffer :wk "Listar os buffers")
-  "bn" '(next-buffer :wk "Proximo buffer")
-  "bp" '(previous-buffer :wk "Buffer anterior")
-  "bd" '(kill-current-buffer :wk "Deletar buffer atual")
-  "bk" '(kill-buffer :wk "Selecionar e deletar buffer"))
-(general-def "C-x C-b" 'ibuffer)
+(evil-define-key 'normal 'global
+  (kbd "<leader>bb") #'consult-buffer
+  (kbd "<leader>bl") #'ibuffer
+  (kbd "<leader>bn") #'next-buffer
+  (kbd "<leader>bp") #'previous-buffer
+  (kbd "<leader>bd") #'kill-current-buffer
+  (kbd "<leader>bk") #'kill-buffer)
+(keymap-global-set "C-x C-b" #'ibuffer)
 
 ;; Janelas
-(nmap/leader-key
-  "w"  '(:ignore t :wk "janela")
-  "ww" '(other-window :wk "Alternar para outra janela")
-  "wq" '(delete-window :wk "Fechar janela em foco")
-  "w0" '(delete-window :wk "Fechar janela em foco")
-  "wo" '(delete-other-windows :wk "Fechar todas as outras janelas")
-  "w1" '(delete-other-windows :wk "Fechar janela em foco")
-  "wS" '(split-window-below :wk "Dividir janela verticalmente")
-  "ws" '(split-window-right :wk "Dividir janela horizontalmente")
-  "wh" '(evil-window-left :wk "Ir para janela à esquerda")
-  "wj" '(evil-window-down :wk "Ir para janela abaixo")
-  "wk" '(evil-window-up :wk "Ir para janela acima")
-  "wl" '(evil-window-right :wk "Ir para janela à direita"))
+(evil-define-key 'normal 'global
+  (kbd "<leader>ww") #'other-window
+  (kbd "<leader>wq") #'delete-window
+  (kbd "<leader>w0") #'delete-window
+  (kbd "<leader>wo") #'delete-other-windows
+  (kbd "<leader>w1") #'delete-other-windows
+  (kbd "<leader>wS") #'split-window-below
+  (kbd "<leader>ws") #'split-window-right
+  (kbd "<leader>wh") #'evil-window-left
+  (kbd "<leader>wj") #'evil-window-down
+  (kbd "<leader>wk") #'evil-window-up
+  (kbd "<leader>wl") #'evil-window-right)
 
 ;; Dired
-(nmap/leader-key
-  "d"  '(:ignore t :wk "dired")
-  "dd" '(dired :wk "Abrir diretório"))
+(evil-define-key 'normal 'global
+  (kbd "<leader>dd") #'dired)
 
 ;; Ajuda
-(nmap/leader-key
-  "h"  '(:ignore t :wk "ajuda")
-  "hf" '(describe-function :wk "Descreva uma função")
-  "hv" '(describe-variable :wk "Descreva uma variavel")
-  "hk" '(describe-key :wk "Descreva o que tal atalho faz")
-  "hx" '(describe-command :wk "Descreva um comando")
-  "ha" '(apropos-command :wk "Achar um comando")
-  "hc" '(describe-key-briefly :wk "Descreva brevemente o que tal atalho faz"))
-
-;; Outros
-(nmap/leader-key
-  "SPC" '(execute-extended-command :wk "Executar um comando"))
-(general-def minibuffer-local-map "<escape>" 'abort-recursive-edit)
-(general-def ivy-minibuffer-map "<escape>" 'abort-recursive-edit)
+(evil-define-key 'normal 'global
+  (kbd "<leader>hf") #'describe-function
+  (kbd "<leader>hv") #'describe-variable
+  (kbd "<leader>hk") #'describe-key
+  (kbd "<leader>hx") #'describe-command
+  (kbd "<leader>ha") #'apropos-command
+  (kbd "<leader>hc") #'describe-key-briefly)
 
 ;; Sair
-(nmap/leader-key
-  "q"  '(:ignore t :wk "sair")
-  "qq" '(save-buffers-kill-emacs :wk "Sair e salvar")
-  "qr" '(restart-emacs :wk "Reiniciar o Emacs")
-  "qQ" '(kill-emacs :wk "Matar o processo do Emacs"))
+(evil-define-key 'normal 'global
+  (kbd "<leader>qq") #'save-buffers-kill-emacs
+  (kbd "<leader>qr") #'restart-emacs
+  (kbd "<leader>qQ") #'kill-emacs)
+
+;; Outros
+(evil-define-key 'normal 'global
+  (kbd "<leader>SPC") #'execute-extended-command)
+(keymap-set minibuffer-local-map "<escape>" #'abort-recursive-edit)
+
+;; Nomear os prefixos
+(which-key-add-key-based-replacements
+  "SPC f" "arquivos"
+  "SPC b" "buffers"
+  "SPC w" "janela"
+  "SPC d" "dired"
+  "SPC h" "ajuda"
+  "SPC q" "sair/reiniciar")
 
 (provide 'keybindings)
 ;;; keybindings.el ends here

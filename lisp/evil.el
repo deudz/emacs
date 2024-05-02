@@ -6,5 +6,9 @@
 (use-package evil
   :init (evil-mode 1))
 
+;; Habilitar o sistema de refazer
+(use-package undo-fu
+  :config (evil-set-undo-system 'undo-fu))
+
 (provide 'evil)
 ;;; evil.el ends here

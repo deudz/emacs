@@ -4,7 +4,8 @@
 
 ;;; Code:
 
-(use-package vterm)
+(use-package term)
+(use-package eshell)
 
 (provide 'terminal)
 ;;; terminal.el ends here

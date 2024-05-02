@@ -9,9 +9,6 @@
 
 ;; Precisamos disso porque estamos usando o straight.el
 (setq package-enable-at-startup nil)
-
-;; Mostre somente erros, não mostre avisos
-(setq warning-minimum-level :error)
  
 ;; Deixando o Emacs mais polido
 (push '(menu-bar-lines . 0)   default-frame-alist) ; Desabilita a barra de ferrametas

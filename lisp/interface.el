@@ -4,9 +4,12 @@
 
 ;;; Code:
 
+(use-package doom-themes)
+
 ;; O tema `bismuth' feito por mim ;)
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
-(load-theme 'bismuth t)
+;;(load-theme 'bismuth t)
+(load-theme 'doom-ayu-mirage t)
 
 ;; Numerar as linhas somente no modo de programação
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -20,34 +23,16 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Mode line
-(use-package delight)
-(delight '((ivy-mode nil ivy)
-           (counsel-mode nil counsel)
-           (beacon-mode nil beacon)
-           (company-mode nil company)
-           (which-key-mode nil which-key)
-           (eldoc-mode nil eldoc)
-           (yas-minor-mode nil yasnippet)))
-
 (use-package hide-mode-line
   :hook
   (help-mode . hide-mode-line-mode)
-  (vterm-mode . hide-mode-line-mode))
+  (term-mode . hide-mode-line-mode)
+  (eshell-mode . hide-mode-line-mode))
 
-(use-package moody
-  :config
-  (setq x-underline-at-descent-line t)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode)
-  (moody-replace-eldoc-minibuffer-message-function))
+(use-package mood-line
+  :config (mood-line-mode))
 
- (let ((line (face-attribute 'mode-line :underline)))
-    (set-face-attribute 'mode-line          nil :overline   line)
-    (set-face-attribute 'mode-line-inactive nil :overline   line)
-    (set-face-attribute 'mode-line-inactive nil :underline  line)
-    (set-face-attribute 'mode-line          nil :box        nil)
-    (set-face-attribute 'mode-line-inactive nil :box        nil)
-    (set-face-attribute 'mode-line-inactive nil :background "#000000"))
+(use-package all-the-icons)
 
 (provide 'interface)
 ;;; interface.el ends here
