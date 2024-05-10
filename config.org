@@ -1,0 +1,283 @@
+#+TITLE: Configuração do Emacs
+#+AUTHOR: Danilo (deudz) Soares
+#+STARTUP: content
+
+* Configurações gerais
+** Evil mode
+O *evil-mode* é um pacote que adiciona os atalhos do Vim no Emacs.
+#+begin_src elisp
+  (use-package evil
+    :config (evil-mode 1))
+#+end_src
+
+** Auto-completion
+Adiciona o *vertico* que deixa os auto-complete com tab melhores.
+#+begin_src elisp
+  (use-package vertico
+    :init (vertico-mode 1))
+#+end_src
+Comandos extras que usam `vertico' como auto-complete.
+#+begin_src elisp 
+  (use-package consult)
+#+end_src
+Ignorar o diferenciamento de letras maiúsculas e minúsculas.
+#+begin_src elisp
+  (setq completion-ignore-case t)
+  (setq read-buffer-completion-ignore-case t)
+  (setq read-file-name-completion-ignore-case t)
+#+end_src
+Deixa o selecionamento de pastas parecido com o *ido-mode*.
+#+begin_src elisp
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+  (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+#+end_src
+
+** Which key
+Quando apertar um atalho que tem outros atalhos dentro dele, exemplo `C-x'
+um minibuffer irá aparecer mostrando os possíveis atalhos a uma descrição
+breve.
+#+begin_src elisp
+  (use-package which-key
+    :init (which-key-mode 1))
+#+end_src
+
+** Misc
+Configurações miscelâneas.
+#+begin_src elisp
+    ;; Não crie arquivos de backup
+  (setq make-backup-files nil)
+
+  ;; Usar espaços em vez de tabs
+  (setq-default indent-tabs-mode nil)
+
+  ;; Quando digitar ( ou " ou { ou [ o Emacs automaticamente colocará ]
+  ;; ou } ou " ou )
+  (electric-pair-mode 1)
+
+  ;; Usar `y' e `n' invêz de `yes' e `no'
+  (defalias 'yes-or-no-p #'y-or-n-p)
+
+  ;; Tamanho inicial da janela
+  (push '(width . 80)  default-frame-alist)
+  (push '(height . 40) default-frame-alist)
+
+  ;; Não mostre avisos de compilação
+  (setq native-comp-async-report-warnings-errors nil)
+#+end_src
+
+* Utilitários de programação
+Algumas ferramentas para deixar a criação de programas, sites, etc., mais fácil.
+** LSP
+Basicamente transforma o Emacs em uma IDE com um ItelliSence parecido com
+o VSCode.
+#+begin_src elisp
+  (use-package lsp-mode
+    :hook ((prog-mode . lsp-deferred)
+	   (lsp-mode . lsp-enable-which-key-integration))
+    :config (setq lsp-warn-no-matched-clients nil)
+    :commands lsp)
+#+end_src
+Visuais extras.
+#+begin_src elisp
+  (use-package lsp-ui :commands lsp-ui-mode)
+#+end_src
+Compatibilidade com o Treemacs.
+#+begin_src elisp
+  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+#+end_src
+** Company
+Pop-up que mostra os auto-completes do LSP.
+#+begin_src elisp
+  (use-package company
+    :hook ((lsp-mode . company-mode)
+	   (emacs-lisp-mode . company-mode))
+    :bind (:map evil-insert-state-map
+		("C-SPC" . company-complete)))
+#+end_src
+
+** Flycheck
+Valida o arquivo para encontrar erros e mostrar avisos.
+#+begin_src elisp
+  (use-package flycheck
+    :hook (lsp-mode . flycheck-mode))
+#+end_src
+Mostra erros na linha
+#+begin_src elisp
+  (use-package flycheck-inline
+    :after flycheck
+    :hook (flycheck-mode . flycheck-inline-mode))
+#+end_src
+
+** Magit
+Um cliente *git* dentro do Emacs.
+#+begin_src elisp
+  (use-package magit)
+#+end_src
+
+** Terminal
+Terminais dentro do Emacs.
+#+begin_src elisp
+  (use-package eshell)
+  (use-package term)
+#+end_src
+
+** Projectile
+Adiciona projetos ao Emacs.
+#+begin_src elisp
+  (use-package projectile)
+#+end_src
+
+* Interface
+Pacotes que deixam o Emacs bonito. Opicional mais recomendado.
+** Beacon
+Quando o cursor move rapidamente, um alerta visual é mostrado.
+#+begin_src elisp
+  (use-package beacon
+    :init (beacon-mode 1))
+#+end_src
+
+** Dashboard
+Uma página inicial mais customizavel e bonita.
+#+begin_src elisp
+  (use-package dashboard
+    :config (dashboard-setup-startup-hook))
+  (setq dashboard-banner-ascii
+	"
+   _______  _______  _______  _______  _______
+  (  ____ \\(       )(  ___  )(  ____ \\(  ____ \\
+  | (    \\/| () () || (   ) || (    \\/| (    \\/
+  | (__    | || || || (___) || |      | (_____
+  |  __)   | |(_)| ||  ___  || |      (_____  )
+  | (      | |   | || (   ) || |            ) |
+  | (____/\\| )   ( || )   ( || (____/\\/\\____) |
+  (_______/|/     \\||/     \\|(_______/\\_______)
+  "
+  )
+  (setq dashboard-startup-banner 'ascii)
+#+end_src
+
+** Temas
+Um pacote que adiciona vários temas para o Emacs.
+#+begin_src elisp
+  (use-package doom-themes)
+#+end_src
+Esse é um dos temas que eu mais gosto!
+#+begin_src elisp
+  (load-theme 'doom-ayu-mirage t)
+#+end_src
+
+** Linhas numeradas
+Numere linhas em modos de programação.
+#+begin_src elisp
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+#+end_src
+Linhas relativas.
+#+begin_src elisp
+  (setq display-line-numbers-type 'relative)
+#+end_src
+
+** Cursor em destaque
+Destaque a linha onde o cursor está.
+#+begin_src elisp
+  (global-hl-line-mode 1)
+#+end_src
+
+** Rainbow-delimiters
+Delimitadores como {}, (), [] ficam arco-íris.
+#+begin_src elisp
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+
+** Mode line
+A barra de status do lado inferior do Emacs.
+#+begin_src elisp
+  (use-package hide-mode-line
+    :hook
+    (help-mode . hide-mode-line-mode)
+    (term-mode . hide-mode-line-mode)
+    (eshell-mode . hide-mode-line-mode))
+
+  (use-package mood-line
+    :config (mood-line-mode))
+#+end_src
+
+** All the icons
+Espalha ícones em alguns lugares.
+#+begin_src elisp
+  (use-package all-the-icons)
+#+end_src
+
+* Atalhos
+Atalhos que facilitam a minha vida.
+#+begin_src elisp
+  ;; Definir a tecla líder
+  (evil-set-leader 'normal (kbd "SPC"))
+
+  ;; Arquivos
+  (evil-define-key 'normal 'global
+    (kbd "<leader>ff") #'find-file
+    (kbd "<leader>fe") #'consult-recent-file
+    (kbd "<leader>fs") #'save-buffer
+    (kbd "<leader>fS") #'save-some-buffers
+    (kbd "<leader>fd") #'delete-file
+    (kbd "<leader>fr") #'rename-file)
+
+  ;; Buffers
+  (evil-define-key 'normal 'global
+    (kbd "<leader>bb") #'consult-buffer
+    (kbd "<leader>bl") #'ibuffer
+    (kbd "<leader>bn") #'next-buffer
+    (kbd "<leader>bp") #'previous-buffer
+    (kbd "<leader>bd") #'kill-current-buffer
+    (kbd "<leader>bk") #'kill-buffer)
+  (keymap-global-set "C-x C-b" #'ibuffer)
+
+  ;; Janelas
+  (evil-define-key 'normal 'global
+    (kbd "<leader>ww") #'other-window
+    (kbd "<leader>wq") #'delete-window
+    (kbd "<leader>w0") #'delete-window
+    (kbd "<leader>wo") #'delete-other-windows
+    (kbd "<leader>w1") #'delete-other-windows
+    (kbd "<leader>wS") #'split-window-below
+    (kbd "<leader>ws") #'split-window-right
+    (kbd "<leader>wh") #'evil-window-left
+    (kbd "<leader>wj") #'evil-window-down
+    (kbd "<leader>wk") #'evil-window-up
+    (kbd "<leader>wl") #'evil-window-right)
+
+  ;; Dired
+  (evil-define-key 'normal 'global
+    (kbd "<leader>dd") #'dired)
+
+  ;; Ajuda
+  (evil-define-key 'normal 'global
+    (kbd "<leader>hf") #'describe-function
+    (kbd "<leader>hv") #'describe-variable
+    (kbd "<leader>hk") #'describe-key
+    (kbd "<leader>hx") #'describe-command
+    (kbd "<leader>ha") #'apropos-command
+    (kbd "<leader>hc") #'describe-key-briefly)
+
+  ;; Sair
+  (evil-define-key 'normal 'global
+    (kbd "<leader>qq") #'save-buffers-kill-emacs
+    (kbd "<leader>qr") #'restart-emacs
+    (kbd "<leader>qQ") #'kill-emacs)
+
+  ;; Outros
+  (evil-define-key 'normal 'global
+    (kbd "<leader>SPC") #'execute-extended-command)
+  (keymap-set minibuffer-local-map "<escape>" #'abort-recursive-edit)
+
+  ;; Nomear os prefixos
+  (which-key-add-key-based-replacements
+    "SPC f" "arquivos"
+    "SPC b" "buffers"
+    "SPC w" "janela"
+    "SPC d" "dired"
+    "SPC h" "ajuda"
+    "SPC q" "sair/reiniciar")
+#+end_src

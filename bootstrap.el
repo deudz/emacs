@@ -1,9 +1,3 @@
-;;; bootstrap.el --- bootstrap do straight.el -*- lexical-binding: t; -*-
-;;; Commentary:
-;; Faz com que o gerenciador de pacotes `straight.el' seja instalado na primeira
-;; vez que abre o Emacs.
-
-;;; Code:
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -22,6 +16,3 @@
 
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
-
-(provide 'bootstrap)
-;;; bootstrap.el ends here

@@ -4,9 +4,6 @@
 
 ;;; Code:
 
-;; Carregando o diretório com os arquivos necessários
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
-
 ;; Precisamos disso porque estamos usando o straight.el
 (setq package-enable-at-startup nil)
  

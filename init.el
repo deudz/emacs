@@ -4,17 +4,11 @@
 
 ;;; Code:
 
-(require 'bootstrap)
-(require 'misc)
-(require 'evil)
-(require 'which-key)
-(require 'keybindings)
-(require 'completion)
-(require 'prog-utils)
-(require 'interface)
-(require 'dashboard)
-(require 'beacon)
-(require 'magit)
-(require 'terminal)
+(require 'org)
+(require 'ob-tangle)
+
+(load-file (concat user-emacs-directory "bootstrap.el"))
+
+(org-babel-load-file (concat user-emacs-directory "config.org"))
 
 ;;; init.el ends here
