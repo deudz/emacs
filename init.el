@@ -11,4 +11,6 @@
 
 (org-babel-load-file (concat user-emacs-directory "config.org"))
 
+(setq gc-cons-threshold most-positive-fixnum)
+
 ;;; init.el ends here

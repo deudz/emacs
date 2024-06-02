@@ -48,9 +48,6 @@ Configurações miscelâneas.
     ;; Não crie arquivos de backup
   (setq make-backup-files nil)
 
-  ;; Usar espaços em vez de tabs
-  (setq-default indent-tabs-mode nil)
-
   ;; Quando digitar ( ou " ou { ou [ o Emacs automaticamente colocará ]
   ;; ou } ou " ou )
   (electric-pair-mode 1)
@@ -64,6 +61,13 @@ Configurações miscelâneas.
 
   ;; Não mostre avisos de compilação
   (setq native-comp-async-report-warnings-errors nil)
+#+end_src
+Colete lixo para o Emacs ser mais rápido.
+#+begin_src elisp
+  (use-package gcmh
+    :init (gcmh-mode 1)
+    :config (setq gcmh-low-cons-threshold (* 32 1024 1024)
+                  gcmh-high-cons-threshold (* 1024 1024 1024)))
 #+end_src
 
 * Utilitários de programação
@@ -157,6 +161,13 @@ Uma página inicial mais customizavel e bonita.
   (setq dashboard-startup-banner 'ascii)
 #+end_src
 
+** Marginalia
+Mostra uma breve informação sobre comandos e outras coisas no auto-complete.
+#+begin_src elisp
+  (use-package marginalia
+    :init (marginalia-mode 1))
+#+end_src
+
 ** Temas
 Um pacote que adiciona vários temas para o Emacs.
 #+begin_src elisp
@@ -164,7 +175,7 @@ Um pacote que adiciona vários temas para o Emacs.
 #+end_src
 Esse é um dos temas que eu mais gosto!
 #+begin_src elisp
-  (load-theme 'doom-ayu-mirage t)
+  (load-theme 'doom-badger t)
 #+end_src
 
 ** Linhas numeradas
