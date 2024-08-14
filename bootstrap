@@ -1,3 +1,12 @@
+#!/usr/bin/emacs -x
+
+(when (equal 0 (user-real-uid))
+  (message
+   (concat
+    "ERRO: Parece que você executou este script como superusuário.\n"
+    "Por favor execute-o como um usuário normal."))
+  (kill-emacs 2))
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -11,8 +20,5 @@
          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
          'silent 'inhibit-cookies)
       (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+      (eval-print-last-sexp))))
 
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)

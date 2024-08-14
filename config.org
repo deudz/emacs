@@ -3,6 +3,13 @@
 #+STARTUP: content
 
 * Configurações gerais
+** Use-package
+Gerenciador de pacotes.
+#+begin_src elisp
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
+#+end_src
+
 ** Evil mode
 O *evil-mode* é um pacote que adiciona os atalhos do Vim no Emacs.
 #+begin_src elisp
@@ -42,6 +49,12 @@ breve.
     :init (which-key-mode 1))
 #+end_src
 
+** Swiper
+Pesquisa entre arquivos melhor.
+#+begin_src elisp
+  (use-package swiper)
+#+end_src
+
 ** Misc
 Configurações miscelâneas.
 #+begin_src elisp
@@ -66,8 +79,9 @@ Colete lixo para o Emacs ser mais rápido.
 #+begin_src elisp
   (use-package gcmh
     :init (gcmh-mode 1)
-    :config (setq gcmh-low-cons-threshold (* 32 1024 1024)
-                  gcmh-high-cons-threshold (* 1024 1024 1024)))
+    :config (setq gcmh-idle-delay 0.6
+		  gcmh-low-cons-threshold (* 32 1024 1024)
+		  gcmh-high-cons-threshold (* 1024 1024 1024)))
 #+end_src
 
 * Utilitários de programação
@@ -124,6 +138,7 @@ Terminais dentro do Emacs.
 #+begin_src elisp
   (use-package eshell)
   (use-package term)
+  (use-package shell)
 #+end_src
 
 ** Projectile
@@ -133,12 +148,26 @@ Adiciona projetos ao Emacs.
 #+end_src
 
 * Interface
-Pacotes que deixam o Emacs bonito. Opicional mais recomendado.
+Pacotes que deixam o Emacs bonito.
+** Dired font-lock
+Dired mais colorido.
+#+begin_src elisp
+  (use-package diredfl
+    :hook (dired-mode . diredfl-mode))
+#+end_src
+
 ** Beacon
 Quando o cursor move rapidamente, um alerta visual é mostrado.
 #+begin_src elisp
   (use-package beacon
     :init (beacon-mode 1))
+#+end_src
+
+** Org bullets
+Marcadores mais bonitos.
+#+begin_src elisp
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
 #+end_src
 
 ** Dashboard
@@ -175,7 +204,7 @@ Um pacote que adiciona vários temas para o Emacs.
 #+end_src
 Esse é um dos temas que eu mais gosto!
 #+begin_src elisp
-  (load-theme 'doom-badger t)
+  (load-theme 'doom-old-hope t)
 #+end_src
 
 ** Linhas numeradas
@@ -191,7 +220,7 @@ Linhas relativas.
 ** Cursor em destaque
 Destaque a linha onde o cursor está.
 #+begin_src elisp
-  (global-hl-line-mode 1)
+  (add-hook 'prog-mode-hook 'hl-line-mode)
 #+end_src
 
 ** Rainbow-delimiters
@@ -220,6 +249,12 @@ Espalha ícones em alguns lugares.
   (use-package all-the-icons)
 #+end_src
 
+** Helpful
+Buffers de ajuda mais bonitos e úteis.
+#+begin_src elisp
+  (use-package helpful)
+#+end_src
+
 * Atalhos
 Atalhos que facilitam a minha vida.
 #+begin_src elisp
@@ -244,6 +279,7 @@ Atalhos que facilitam a minha vida.
     (kbd "<leader>bd") #'kill-current-buffer
     (kbd "<leader>bk") #'kill-buffer)
   (keymap-global-set "C-x C-b" #'ibuffer)
+  (keymap-global-set "C-x b" #'consult-buffer)
 
   ;; Janelas
   (evil-define-key 'normal 'global
@@ -265,12 +301,16 @@ Atalhos que facilitam a minha vida.
 
   ;; Ajuda
   (evil-define-key 'normal 'global
-    (kbd "<leader>hf") #'describe-function
-    (kbd "<leader>hv") #'describe-variable
-    (kbd "<leader>hk") #'describe-key
-    (kbd "<leader>hx") #'describe-command
+    (kbd "<leader>hf") #'helpful-function
+    (kbd "<leader>hv") #'helpful-variable
+    (kbd "<leader>hk") #'helpful-key
+    (kbd "<leader>hx") #'helpful-command
     (kbd "<leader>ha") #'apropos-command
     (kbd "<leader>hc") #'describe-key-briefly)
+  (keymap-global-set "C-h f" #'helpful-function)
+  (keymap-global-set "C-h v" #'helpful-variable)
+  (keymap-global-set "C-h k" #'helpful-key)
+  (keymap-global-set "C-h x" #'helpful-command)
 
   ;; Sair
   (evil-define-key 'normal 'global
@@ -282,6 +322,7 @@ Atalhos que facilitam a minha vida.
   (evil-define-key 'normal 'global
     (kbd "<leader>SPC") #'execute-extended-command)
   (keymap-set minibuffer-local-map "<escape>" #'abort-recursive-edit)
+  (keymap-global-set "C-s" #'swiper)
 
   ;; Nomear os prefixos
   (which-key-add-key-based-replacements
