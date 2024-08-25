@@ -104,6 +104,21 @@ Compatibilidade com o Treemacs.
 #+begin_src elisp
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 #+end_src
+
+** Snippets
+Snippets de códigos.
+#+begin_src elisp
+  (use-package yasnippet
+    :after lsp-mode
+    :config (setq lsp-enable-snippet t))
+#+end_src
+
+** Lua
+Suporte para a linguagem Lua.
+#+begin_src elisp
+  (use-package lua-mode)
+#+end_src
+
 ** Company
 Pop-up que mostra os auto-completes do LSP.
 #+begin_src elisp
