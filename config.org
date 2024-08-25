@@ -93,7 +93,8 @@ o VSCode.
   (use-package lsp-mode
     :hook ((prog-mode . lsp-deferred)
 	   (lsp-mode . lsp-enable-which-key-integration))
-    :config (setq lsp-warn-no-matched-clients nil)
+    :config (setq lsp-headerline-breadcrumb-enable nil)
+	     (setq lsp-warn-no-matched-clients nil)
     :commands lsp)
 #+end_src
 Visuais extras.
